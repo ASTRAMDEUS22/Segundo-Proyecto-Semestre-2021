@@ -8,26 +8,63 @@ class Submarino:
     def __init__(self,canvas):
         #CONSTRUCTORES
         self.canvas = canvas
+        self.x = 300
+        self.y = 300
         self.move_x = 0
         self.move_y = 0
+        self.imagen_parafondo = PhotoImage(file="imagenes/imagenes_fondos/abismo_nivel1.png")
+        self.imagen_defondo = Label(canvas, image=self.imagen_parafondo)  # SE COLOCA LA IMAGEN
+        #self.imagen_defondo.place(x=0, y=0)
         self.imagen = PhotoImage(file="imagenes/imagenes_cosas/submarino.png")
-        self.submarino = self.canvas.create_image(300,300,image=self.imagen)
+        self.submarino = self.canvas.create_image(self.x,self.y,image=self.imagen)
 
 
         self.move()
+
+
     def move(self):
-        self.canvas.move(self.submarino,self.move_x,self.move_y)
-        self.canvas.after(10,self.move)
+        self.x_coords, self.y_coords = self.canvas.coords(self.submarino)
+        print(self.y_coords)
+        if self.y_coords >= 180:
+            self.canvas.move(self.submarino, self.move_x, self.move_y)
+            self.canvas.after(10, self.move)
+
+        """
+        if self.y_coords >= 140:
+            self.canvas.move(self.submarino,self.move_x,self.move_y)
+        else:
+            self.canvas.move(self.submarino,0,0)
+        if self.y_coords <= 600:
+            self.canvas.move(self.submarino, self.move_x, self.move_y)
+        else:
+            self.canvas.move(self.submarino, 0, 0)
+        """
+
+
+
+
 
     def arriba(self,event):
         print(event.keysym)
-        self.move_x = 0
-        self.move_y = -2
+        if self.y_coords >= 180:
+            self.move_x = 0
+            self.move_y = -2
+        else:
+            self.move_x = 0
+            self.move_y = 0
+
+
+
 
     def abajo(self,event):
         print(event.keysym)
-        self.move_x = 0
-        self.move_y = 2
+        if self.y_coords >= 180:
+            self.move_x = 0
+            self.move_y = 2
+        else:
+            self.move_x = 0
+            self.move_y = 0
+
 
 
 
@@ -42,6 +79,7 @@ azul_marino_boton = use_rgb((0,112,153))
 blanco_letras = use_rgb((173,171,159))
 azul_oscuro = use_rgb((26,33,49))
 azul_oscuro2 = use_rgb((40,51,75))
+azul_oscuro3 = use_rgb((26,33,49))
 
 def pantalla_main():                                                                                                    #PRESENTACIÓN DEL JUEGO
     #CANVAS
@@ -118,21 +156,32 @@ def enviar_a_nivel(nombre_jugador,valor_radio):                                 
 
 def nivel_Uno():                                                                                                        #NIVEL UNO O LA PRIMERA PROFUNDIDAD
     #CANVAS
-    canvas = Canvas(window,bg=azul_oscuro2,width=1600,height=870)                                                              #CANVAS DONDE SE ALMACENARÁ TODO
+    canvas = Canvas(window,bg=azul_oscuro2,width=1600,height=870)                                                       #CANVAS DONDE SE ALMACENARÁ TODO
     canvas.place(x=-2,y=-2)
+    canvas_info_arriba= Canvas(canvas,bg=azul_oscuro3,width=1600,height=100,highlightthickness=0)                       #CANVAS DONDE IRÁ DISTINTA INFORMACIÓN RELACIONADA AL NIVEL
+    canvas_info_arriba.place(x=2,y=0)
+    canvas_info_abajo = Canvas(canvas,bg=azul_oscuro3,width=1600,height=100,highlightthickness=0)
+    canvas_info_abajo.place(x=2,y=772)
 
     #LABELS
-    imagen_parafondo = PhotoImage(file="imagenes/imagenes_fondos/abismo_nivel1.png")                                    #SE ELIGE IMAGEN A UTILIZAR
-    imagen_defondo = Label(canvas,image=imagen_parafondo)                                                               #SE COLOCA LA IMAGEN
-    #imagen_defondo.place(x=0,y=0)
+    label_nivel = Label(canvas_info_arriba,text="Profundidad-4000m",bg=azul_oscuro3,fg="white",
+    font=("Bodoni MT Black",26))
+    label_nivel.place(x=50,y=30)
+    #BOTONES
+    boton_pausa = Button(canvas_info_arriba,text="PAUSA",width=7,height=1,bg="white",fg=azul_oscuro3,
+    font=("SNAP ITC",12))
+    boton_pausa.place(x=1200,y=30)
+    boton_regresar = Button(canvas_info_arriba, text="REGRESAR", width=10, height=1, bg="white", fg=azul_oscuro3,
+    font=("SNAP ITC", 12),command=pantalla_selector_niveles)
+    boton_regresar.place(x=1400, y=30)
 
     #INSTANCIA DE CLASE
     jugador = Submarino(canvas)
 
 
     #HABILITAR EL USO DE TECLAS
-    window.bind("<Up>",lambda e:jugador.arriba(e))
-    window.bind("<Down>",lambda e:jugador.abajo(e))
+    window.bind("<Up>",lambda e:jugador.arriba(e))                                                                      #AL PRESIONAR LA TECLA, EJECUTA EL METODO DE LA CLASE PARA CAMBIAR LA DIRECCIÓN A ARRIBA
+    window.bind("<Down>",lambda e:jugador.abajo(e))                                                                     #AL PRESIONAR LA TECLA, EJECUTA EL METODO DE LA CLASE PARA CAMBIAR LA DIRECCIÓN A ABAJO
 
     window.mainloop()                                                                                                   #BUCLE PARA MANTENER LA VENTANA ABIERTA
 
