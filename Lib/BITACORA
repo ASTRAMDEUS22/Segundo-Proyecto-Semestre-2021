@@ -7,3 +7,20 @@
     10:30 a.m. a 1:50 p.m.: Estoy creando la segunda parte del menu, añadiendo botones de radio, imagenes y empezaré a desarrollar la primera parte del primer nivel.
     2:23 p.m. a 4:51 p.m. : Estoy teniendo problemas con el fondo de pantalla y la clase, veré si con la ayuda del tutor logro aprender a reparar ese problema; no logré arreglar
     el problema, hablaré con distintas fuentes y seguiré con el código.
+
+-BITACORA PROYECTO DÍA 3/10/2021
+
+    10:24 a.m. a 10:47 a.m.: Trataré de arreglar los problemas que surgieron con mi reloj, ya que cuenta de 2 en 2 en vez de 1 en 1.
+    10:48 a.m: Logré arreglar el problema con el contador.
+
+-BITACORA PROYECTO DÍA 3/10/2021
+
+    2:08 p.m.: Logré hacer que la nave constantemente se mueva hacía atras para que así si no se mueve hacia al frente, eventualmente choque con la parte izquierda.
+    3:40 p.m.: Utilizo diferentes archivos para manejar las clases en python.
+    5:40 p.m.: Creo una clase para los obstaculos
+    8:35 p.m.: He pasado como parametros los labels a modificar, en vez de crearlos en el constructor de las clases, esto me facilitará un experimento con el obstaculo
+
+-BITACORA PROYECTO DÍA 3/10/2021
+
+    10:30 a.m.: He creado la condicion que si el submarino toca el borde izquierdo, el jugador pierde
+    5:40 p.m.: Logré hacer una animación del monstruo
