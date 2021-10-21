@@ -24,3 +24,17 @@
 
     10:30 a.m.: He creado la condicion que si el submarino toca el borde izquierdo, el jugador pierde
     5:40 p.m.: Logré hacer una animación del monstruo
+
+-BITACORA PROYECTO DÍA 6/10/2021
+
+    9:30 p.m.: Logré limitar el movimiento de la nave arriba, abajo y derecha usando el .coords
+
+-BITACORA PROYECTO DÍA 9/10/2021
+    4:00 p.m.: Hice la pantalla de las puntuaciones.
+    6:42 p.m.: Logre eliminar la instancia creada cada vez que empiezo un nivel, haciendo que no hayan otros objetos interrumpiendo por debajo, también al volver al menu los objetos se eliminan.
+
+-BITACORA PROYECTO DÍA 18/10/2021
+    11:15 p.m.: Logre enviarle los datos del jugador a la pantalla de "game over", haciendo más facil el procesado de los puntajes
+
+-BITACORA PROYECTO DÍA 20/10/2021
+    12:02 p.m.: Termino detalles del proyecto como música, el about, decoraciones, los niveles faltantes.
