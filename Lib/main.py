@@ -33,7 +33,7 @@ def pantalla_main():  # PRESENTACIÓN DEL JUEGO
     canvas.place(x=-2, y=-2)
     # LABELS
     imagen_parafondo = PhotoImage(
-        file="imagenes/imagenes_fondos/THE ABYSS FONDO.png")  # VARIABLE PARA ELEGIR UNA IMAGEN
+        file="imagenes/imagenes_fondos/THE ABYSS FONDO.gif")  # VARIABLE PARA ELEGIR UNA IMAGEN
     imagen_defondo = Label(canvas, image=imagen_parafondo)  # ETQUETA DONDE SE COLOCARÁ LA IMAGEN
     imagen_defondo.place(x=0, y=0)
 
@@ -55,7 +55,7 @@ def pantalla_selector_niveles():  # SE SELECCIONA LA PROFUNDIDAD/VELOCIDAD A EMP
     canvas.place(x=-2, y=-2)
 
     # LABELS
-    imagen_parafondo = PhotoImage(file="imagenes/imagenes_fondos/abismo_menu.png")  # IMAGEN A UTILIZAR
+    imagen_parafondo = PhotoImage(file="imagenes/imagenes_fondos/abismo_menu.gif")  # IMAGEN A UTILIZAR
     imagen_defondo = Label(canvas, image=imagen_parafondo)  # ETQUETA DONDE SE COLOCARÁ LA IMAGEN
     imagen_defondo.place(x=0, y=0)
 
@@ -542,7 +542,7 @@ def pantalla_puntajes():
     canvas.place(x=-2, y=-2)
 
     # LABEL
-    fondo_imagen = PhotoImage(file="imagenes/imagenes_fondos/tabla_puntos.png")
+    fondo_imagen = PhotoImage(file="imagenes/imagenes_fondos/tabla_puntos.gif")
     label_fondo = Label(canvas, image=fondo_imagen).place(x=0, y=0)
 
     # BOTON
@@ -580,7 +580,7 @@ def pantalla_about():
     canvas = Canvas(window, width=1600, height=870, bg="blue")
     canvas.place(x=-2, y=-2)
     # LABELS
-    imagen = PhotoImage(file="imagenes/imagenes_fondos/under_weather.png")
+    imagen = PhotoImage(file="imagenes/imagenes_fondos/under_weather.gif")
     label_imagen = Label(canvas, image=imagen)
     label_imagen.place(x=0, y=0)
 
