@@ -21,26 +21,33 @@ class Obstaculos:
 
     def move(self):  #MUEVE LOS OBSTACULOS
         self.x2,self.y2 = self.canvas.coords(self.obstaculo)
-        xsub = self.submarino.x
-        ysub = self.submarino.y
-        self.impacto = False
         self.resultado = self.tiempo.resultado
         #print(xsub,ysub)
         #print("coords",self.x2,self.y2)
+
+        #SUBMARINO
+        self.canvas_submarino = self.submarino.canvas
+        self.jugador = self.submarino.submarino
+        self.colision_jugador = self.canvas_submarino.bbox(self.jugador)
+        #print(self.colision_jugador)
+
+        #OBSTACULO
+        self.colision_obstaculo = self.canvas.bbox(self.obstaculo)
+        #print(self.colision_obstaculo)
 
         if self.x2 <= -1700:  # SI EL OBSTACULO TOCA LA IZQUIERDA, SE VUELVE A "GENERAR" EN UNA POSICION EN Y ALEATORIA ENTRE 100 Y 790
             self.x2 = self.xPosition
             self.y2 = random.randrange(100,790)
             self.canvas.coords(self.obstaculo,self.x2,self.y2)
-        if xsub <= self.x2 <= xsub and ysub <= self.y2 <= ysub + 20:  #CHOQUE CON EL JUGADOR
+        if self.colision_obstaculo[2]>self.colision_jugador[0]>self.colision_obstaculo[0] and self.colision_obstaculo[2]<self.colision_jugador[3]<self.colision_obstaculo[3]:
             return self.pantalla_gamerover(self.canva_arriba,self.canvas,self.canva_abajo,self.nombre,self.resultado)
 
 
         self.canvas.move(self.obstaculo,self.x_velocidad,self.y_velocidad)
         self.canvas.after(10,self.move)  # HACE UN AFTER DE 10 MS PARA "ANIMAR" LOS OBSTACULOS
 
-    def prueba(self):
+    def prueba(self):  #INNECESARIO
         #print(self.p)
         if self.p <= 1000:
             self.p = self.p + 1
-        self.canvas.after(1000,self.prueba)
+        #self.canvas.after(1000,self.prueba)

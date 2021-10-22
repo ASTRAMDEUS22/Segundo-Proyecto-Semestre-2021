@@ -31,6 +31,7 @@ class Tiempo:
         self.puntajeMax = 0
         self.resultado = 0
         self.sonido = pygame.mixer.Sound("Musica/monstruo_roar.ogg")
+        self.sonido.set_volume(0.2)
 
     def avance_1(self):  #AVANZA EL TIEMPO Y PUNTAJE DE 1 EN 1
         #print("segundo: ", self.seg)

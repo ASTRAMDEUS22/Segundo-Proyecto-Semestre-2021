@@ -7,7 +7,9 @@ from class_Submarino import *
 from class_Tiempo import *
 from class_Obstaculos import *
 from class_leviatan import *
+from class_imagen import *
 import random
+
 pygame.mixer.init()
 
 
@@ -24,7 +26,7 @@ azul_oscuro = use_rgb((26, 33, 49))
 azul_oscuro2 = use_rgb((40, 51, 75))
 azul_oscuro3 = use_rgb((26, 33, 49))
 azulito = use_rgb((3, 27, 39))
-cafe_madera = use_rgb((184,146,93))
+cafe_madera = use_rgb((184, 146, 93))
 
 
 def pantalla_main():  # PRESENTACIÓN DEL JUEGO
@@ -64,8 +66,7 @@ def pantalla_selector_niveles():  # SE SELECCIONA LA PROFUNDIDAD/VELOCIDAD A EMP
     label_titulo.place(x=450, y=250)
 
     Label_ingreseNombre = Label(canvas, text="Ingrese su nombre :", bg=azul_oscuro2,
-                                # CUADRO DE TEXTO DONDE INDICA AL JUGADOR QUE DEBE INGRESAR SU NOMBRE
-                                fg="white", width=20, font=("Press Start 2P", 10))
+                                fg="white", width=20, font=("Press Start 2P", 10))  # CUADRO DE TEXTO DONDE INDICA AL JUGADOR QUE DEBE INGRESAR SU NOMBRE
     Label_ingreseNombre.place(x=480, y=380)
 
     Label_profundidad = Label(canvas, text="Profundidad :", bg=azul_oscuro2, fg="white", width=20,
@@ -73,9 +74,8 @@ def pantalla_selector_niveles():  # SE SELECCIONA LA PROFUNDIDAD/VELOCIDAD A EMP
                               font=("Press Start 2P", 10))
     Label_profundidad.place(x=480, y=465)
 
-    label_insis = Label(canvas, text="", bg=azul_oscuro2, fg="white", width=40, font=(
-    "SNAP ITC", 12))  # CUADRO DE TEXTO DONDE INDICA AL JUGADOR QUE DEBE PONER UN NOMBRE PEQUEÑO
-    label_insis.place(x=1125, y=380)
+    label_insis = Label(canvas, text="", bg=azul_oscuro2, fg="white", width=70, font=("SNAP ITC", 12))  # CUADRO DE TEXTO DONDE INDICA AL JUGADOR QUE DEBE PONER UN NOMBRE PEQUEÑO
+    label_insis.place(x=620, y=420)
 
     # BOTONES DE RADIO
     all_radiobutton = IntVar()  # GUARDA EL VALOR DE LOS BOTONES DE RADIO
@@ -93,19 +93,17 @@ def pantalla_selector_niveles():  # SE SELECCIONA LA PROFUNDIDAD/VELOCIDAD A EMP
     radio_button_lvl3.place(x=1000, y=460)
 
     # BOTONES
-    empezar = Button(canvas, text="Empezar", bg=azul_oscuro, fg="white", width=20, font=("Press Start 2P", 14),
+    empezar = Button(canvas, text="EMPEZAR", bg=azul_oscuro, fg="white", width=20, font=("Press Start 2P", 14),
                      # INICIA LOS DEMÁS NIVELES DEL JUEGO
                      command=lambda: (enviar_a_nivel(cuadro_nombre.get(), all_radiobutton.get(), label_insis)))
     empezar.place(x=690, y=520)
 
-    boton_puntajes = Button(canvas,text="PUNTAJES",bg=azul_oscuro,fg="white",width=20,font=("Press Start 2P", 14),command=pantalla_puntajes)
-    boton_puntajes.place(x=690,y=700)
+    boton_puntajes = Button(canvas, text="PUNTAJES", bg=azul_oscuro, fg="white", width=20, font=("Press Start 2P", 14),
+                            command=pantalla_puntajes)
+    boton_puntajes.place(x=690, y=700)
 
-    # testing = Button(canvas,text="testing",command=lambda:game_over)
-    # testing.place(x=100,y=100)
-
-    about = Button(canvas, text="ABOUT", command=pantalla_about)
-    about.place(x=100, y=200)
+    boton_about = Button(canvas, text="ABOUT",bg=azul_oscuro, fg="white", width=10, font=("Press Start 2P", 14),command=pantalla_about)
+    boton_about.place(x=100, y=800)
 
     # CUADRO DE NOMBRE
     cuadro_nombre = Entry(canvas, text="Ingrese su nombre", width=30,
@@ -127,11 +125,11 @@ def enviar_a_nivel(nombre_jugador, valor_radio,
             nombre_jugador) < 17:  # EN CASO DE NO SELECCIONAR PROFUNDIDAD, SE EMPEZARÁ EN EL NIVEL 1
         return nivel_Uno(nombre_jugador)
     else:
-        return label.config(text="¡Error!: El nombre debe ser menor a 10 digitos")
+        return label.config(text="¡Error!: El nombre debe ser tener al menos un digito y ser menor a 17 digitos")
 
 
 def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
-    #MUSICA
+    # MUSICA
     pygame.mixer.music.load("Musica/musica_lvl1.ogg")
     pygame.mixer.music.play(-1)
     pygame.mixer.Sound("Musica/monstruo_roar.ogg")
@@ -156,7 +154,8 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
                          font=("Bodoni MT Black", 16))  # LABEL DEL NOMBRE DEL JUGADOR
     label_nombre.place(x=50, y=20)
 
-    label_segundos = Label(canvas_info_abajo, text="Segundos:", bg=azul_oscuro3, fg="white",  # LABEL QUE DEMARCA SEGUNDOS
+    label_segundos = Label(canvas_info_abajo, text="Segundos:", bg=azul_oscuro3, fg="white",
+                           # LABEL QUE DEMARCA SEGUNDOS
                            font=("Bodoni MT Black", 14))
     label_segundos.place(x=500, y=20)
 
@@ -170,11 +169,11 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
     label_puntos2.place(x=915, y=20)  # LABEL DONDE SE EDITA LOS PUNTOS
 
     label_acuPuntos = Label(canvas_info_abajo, text="Puntos acumulados:", bg=azul_oscuro3, fg="white",
-                            font=("Bodoni MT Black", 14))  #lABEL QUE DEMARCA PUNTOS ACUMULADOS
+                            font=("Bodoni MT Black", 14))  # lABEL QUE DEMARCA PUNTOS ACUMULADOS
     label_acuPuntos.place(x=1250, y=20)
 
     label_acuPuntos2 = Label(canvas_info_abajo, text=0, bg=azul_oscuro3, fg="white", font=("Bodoni MT Black", 14))
-    label_acuPuntos2.place(x=1500, y=20)  #LABEL DONDE SE EDITAN LOS PUNTOS ACUMULADOS
+    label_acuPuntos2.place(x=1500, y=20)  # LABEL DONDE SE EDITAN LOS PUNTOS ACUMULADOS
 
     # BOTONES
     boton_pausa = Button(canvas_info_arriba, text="PAUSA", width=7, height=1, bg="white", fg=azul_oscuro3,
@@ -183,7 +182,7 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
     boton_pausa.place(x=1200, y=30)
     boton_regresar = Button(canvas_info_arriba, text="REGRESAR", width=10, height=1, bg="white", fg=azul_oscuro3,
                             # BOTON UTILIZADO PARA VOLVER A LA PÁGINA DE SELECCIÓN DE NIVELES
-                            font=("SNAP ITC", 12), command=lambda: (destruccion(),pantalla_selector_niveles()))
+                            font=("SNAP ITC", 12), command=lambda: (destruccion(), pantalla_selector_niveles()))
     boton_regresar.place(x=1400, y=30)
 
     def destruccion():  # DESTRUYE TODOS LOS CANVAS EN CASO DE CERRAR EL JUEGO
@@ -192,10 +191,11 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
         canvas_info_abajo.destroy()
 
     # INSTANCIA DE CLASE
+    fondo_dinamico = imagen(canvas, -2)
 
     tempo = Tiempo(canvas_info_arriba, canvas, canvas_info_abajo, label_segundos2, label_puntos2, label_acuPuntos2,
                    game_over, nombre)  # INSTAMCIA DE LA CLASE TIEMPO
-    jugador = Submarino(canvas,2,game_over, canvas_info_arriba, canvas_info_abajo, tempo,
+    jugador = Submarino(canvas, 2, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                         nombre)  # INSTANCIA DE LA CLASE SUBMARINO
     leviatan = Leviatan(canvas)
     obstaculo1 = Obstaculos(canvas, 1600, -5, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
@@ -207,6 +207,7 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
     obstaculo4 = Obstaculos(canvas, 2800, -5, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                             nombre)  # OBSTACULO 4
 
+
     # HILOS
     def all_Threads():  # EJECUTA LOS HILOS
 
@@ -214,7 +215,10 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
             target=tempo.avance_1)  # HILO QUE PROVOCA EL AVANCE CONTINUO DEL CONTADOR Y SE MUESTRA EN EL LABEL_SEG
         hilo_tempo.start()
 
-        #HILO DE LOS OBSTACULOS
+        hilo_imagen = threading.Thread(target=fondo_dinamico.movimient)
+        hilo_imagen.start()
+
+        # HILO DE LOS OBSTACULOS
         hilo_pez = threading.Thread(target=obstaculo1.move)
         hilo_pez.start()
         hilo_pez2 = threading.Thread(target=obstaculo2.move)
@@ -227,11 +231,11 @@ def nivel_Uno(nombre):  # NIVEL UNO O LA PRIMERA PROFUNDIDAD
         hil = threading.Thread(target=obstaculo1.prueba)
         hil.start()
 
-        #HILO JUGADOR
+        # HILO JUGADOR
         hilo_submarino = threading.Thread(target=jugador.movement)
         hilo_submarino.start()
 
-        #HILO MONSTRUP
+        # HILO MONSTRUP
         hilo_levi = threading.Thread(target=leviatan.sprite)
         hilo_levi.start()
         hilo_P = threading.Thread(target=leviatan.prueba)
@@ -306,7 +310,7 @@ def nivel_Dos(nombre):  # NIVEL DOS
     boton_pausa.place(x=1200, y=30)
     boton_regresar = Button(canvas_info_arriba, text="REGRESAR", width=10, height=1, bg="white", fg=azul_oscuro3,
                             # BOTON UTILIZADO PARA VOLVER A LA PÁGINA DE SELECCIÓN DE NIVELES
-                            font=("SNAP ITC", 12), command=lambda: (destruccion(),pantalla_selector_niveles()))
+                            font=("SNAP ITC", 12), command=lambda: (destruccion(), pantalla_selector_niveles()))
     boton_regresar.place(x=1400, y=30)
 
     def destruccion():  # DESTRUYE TODOS LOS CANVAS
@@ -315,14 +319,15 @@ def nivel_Dos(nombre):  # NIVEL DOS
         canvas_info_abajo.destroy()
 
     # INSTANCIA DE CLASE
+    fondo_dinamico = imagen(canvas, -3)
 
     tempo = Tiempo(canvas_info_arriba, canvas, canvas_info_abajo, label_segundos2, label_puntos2, label_acuPuntos2,
                    game_over, nombre)  # INSTAMCIA DE LA CLASE TIEMPO
-    jugador = Submarino(canvas,-3, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
+    jugador = Submarino(canvas, -3, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                         nombre)  # INSTANCIA DE LA CLASE SUBMARINO
     leviatan = Leviatan(canvas)
 
-    #INSTANCIA OBSTACULOS
+    # INSTANCIA OBSTACULOS
     obstaculo1 = Obstaculos(canvas, 1600, -7, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                             nombre)
     obstaculo2 = Obstaculos(canvas, 2000, -7, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
@@ -337,6 +342,10 @@ def nivel_Dos(nombre):  # NIVEL DOS
 
         hilo_tempo = threading.Thread(
             target=tempo.avance_2)  # HILO QUE PROVOCA EL AVANCE CONTINUO DEL CONTADOR Y SE MUESTRA EN EL LABEL_SEG
+
+        hilo_imagen = threading.Thread(target=fondo_dinamico.movimient)
+        hilo_imagen.start()
+
         hilo_tempo.start()
         hilo_pez = threading.Thread(target=obstaculo1.move)
         hilo_pez.start()
@@ -428,23 +437,24 @@ def nivel_Tres(nombre):  # NIVEL TRES
     boton_pausa.place(x=1200, y=30)
     boton_regresar = Button(canvas_info_arriba, text="REGRESAR", width=10, height=1, bg="white", fg=azul_oscuro3,
                             # BOTON UTILIZADO PARA VOLVER A LA PÁGINA DE SELECCIÓN DE NIVELES
-                            font=("SNAP ITC", 12), command=lambda: (destruccion(),pantalla_selector_niveles()))
+                            font=("SNAP ITC", 12), command=lambda: (destruccion(), pantalla_selector_niveles()))
     boton_regresar.place(x=1400, y=30)
 
-    def destruccion():  #DESTRUYE TODOS LOS CANVAS
+    def destruccion():  # DESTRUYE TODOS LOS CANVAS
         canvas.destroy()
         canvas_info_arriba.destroy()
         canvas_info_abajo.destroy()
 
     # INSTANCIA DE CLASE
+    fondo_dinamico = imagen(canvas, -4)
 
     tempo = Tiempo(canvas_info_arriba, canvas, canvas_info_abajo, label_segundos2, label_puntos2, label_acuPuntos2,
                    game_over, nombre)  # INSTAMCIA DE LA CLASE TIEMPO
-    jugador = Submarino(canvas,-4, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
+    jugador = Submarino(canvas, -4, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                         nombre)  # INSTANCIA DE LA CLASE SUBMARINO
     leviatan = Leviatan(canvas)
 
-    #OBSTACULOS INSTANCIAS
+    # OBSTACULOS INSTANCIAS
     obstaculo1 = Obstaculos(canvas, 1600, -9, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
                             nombre)
     obstaculo2 = Obstaculos(canvas, 2000, -9, 0, jugador, game_over, canvas_info_arriba, canvas_info_abajo, tempo,
@@ -459,6 +469,10 @@ def nivel_Tres(nombre):  # NIVEL TRES
 
         hilo_tempo = threading.Thread(
             target=tempo.avance_3)  # HILO QUE PROVOCA EL AVANCE CONTINUO DEL CONTADOR Y SE MUESTRA EN EL LABEL_SEG
+
+        hilo_imagen = threading.Thread(target=fondo_dinamico.movimient)
+        hilo_imagen.start()
+
         hilo_tempo.start()
         hilo_pez = threading.Thread(target=obstaculo1.move)
         hilo_pez.start()
@@ -499,7 +513,7 @@ def nivel_Tres(nombre):  # NIVEL TRES
 def game_over(canva_arriba, canva, canva_abajo, nombre, puntos):
     pygame.mixer.music.load("Musica/sonido_gameover.ogg")
     pygame.mixer.music.play(1)
-    #pygame.mixer.Sound.stop()
+    # pygame.mixer.Sound.stop()
     # CANVAS
     canvas = Canvas(window, width=1600, height=870, bg="black")  # CANVAS PRINCIPAL
     canvas.place(x=-2, y=-2)
@@ -512,20 +526,24 @@ def game_over(canva_arriba, canva, canva_abajo, nombre, puntos):
     label_destroy = Label(canvas, image=imagen_destroy, highlightthickness=0, bd=0)
     label_destroy.place(x=1260, y=150)
 
-    label_puntaje = Label(canvas, text="Capitan " + nombre + " usted obtuvo: " + str(puntos) + " puntos",font=("Press Start 2P", 15)).place(x=450, y=400)  #ESTE LABEL MUESTRA TEMPORALMENTE AL JUGADOR QUE PUNTAJE OBTUVO
+    label_puntaje = Label(canvas, text="Capitan " + nombre + " usted obtuvo: " + str(puntos) + " puntos",
+                          font=("Press Start 2P", 15)).place(x=470,
+                                                             y=400)  # ESTE LABEL MUESTRA TEMPORALMENTE AL JUGADOR QUE PUNTAJE OBTUVO
 
     # BOTONES
-    volver = Button(canvas, text="VOLVER", font=("Press Start 2P", 20), bg="black", fg="white",command=pantalla_selector_niveles)
-    volver.place(x=400, y=500)
+    volver = Button(canvas, text="VOLVER", font=("Press Start 2P", 20), bg="black", fg="white",
+                    command=pantalla_selector_niveles)
+    volver.place(x=450, y=500)
 
-    puntajes = Button(canvas, text="PUNTAJES", font=("Press Start 2P", 20), bg="black", fg="white",command=pantalla_puntajes)
-    puntajes.place(x=800, y=500)
+    puntajes = Button(canvas, text="PUNTAJES", font=("Press Start 2P", 20), bg="black", fg="white",
+                      command=pantalla_puntajes)
+    puntajes.place(x=880, y=500)
 
-    #EDICION DEL ARCHIVO DE TEXTO
+    # EDICION DEL ARCHIVO DE TEXTO
     texto = nombre + " --> " + str(puntos) + "\n"  # SE MESTRA QUE SE ESCRIBIRÁ EN EL RENGLON
-    archivo = open("PUNTAJES.txt","a")  #SE ABRE EL ARCHIVO EN MODO EDICION
+    archivo = open("PUNTAJES.txt", "a")  # SE ABRE EL ARCHIVO EN MODO EDICION
     archivo.write(texto)  # SE ESCRIBE UN FORMATO EN EL ARCHIVP
-    archivo.close()  #SE CIERRA EL ARCHIVO
+    archivo.close()  # SE CIERRA EL ARCHIVO
 
     canva_arriba.destroy()  # CON ESTO SE DESTRUYE EL CANVAS DE ARRIBA
     canva.destroy()  # CON ESTO SE DESTRUYE EL CANVAS DEL MEDIO
@@ -546,13 +564,14 @@ def pantalla_puntajes():
     label_fondo = Label(canvas, image=fondo_imagen).place(x=0, y=0)
 
     # BOTON
-    boton_regresar = Button(canvas, text="VOLVER", bg=cafe_madera,fg="white",font=("Press Start 2P", 13), width=15, height=2,command=pantalla_selector_niveles)
+    boton_regresar = Button(canvas, text="VOLVER", bg=cafe_madera, fg="white", font=("Press Start 2P", 13), width=15,
+                            height=2, command=pantalla_selector_niveles)
     boton_regresar.place(x=20, y=700)
 
-    #LEER EL TEXTO
+    # LEER EL TEXTO
     lista = open("PUNTAJES.txt", "r")
 
-    def funcion(texto):  #ESTA FUNCION GENERA LABELS QUE MUESTRAN LAS PUNTUACIONES
+    def funcion(texto):  # ESTA FUNCION GENERA LABELS QUE MUESTRAN LAS PUNTUACIONES
         y = 100
         cont = 0
         for i in texto:
@@ -560,7 +579,8 @@ def pantalla_puntajes():
                 break
             else:
                 print(i)
-                Label(canvas, text=i, width=20, height=3,bg=cafe_madera,fg="white",font=("Press Start 2P", 10),bd=5,relief="groove").place(x=700, y=y)
+                Label(canvas, text=i, width=20, height=3, bg=cafe_madera, fg="white", font=("Press Start 2P", 10), bd=5,
+                      relief="groove").place(x=700, y=y)
                 y += 150
                 cont += 1
 
@@ -573,7 +593,7 @@ def pantalla_puntajes():
 def pantalla_about():
     pygame.mixer.music.load("Musica/Musica_about.ogg")
     pygame.mixer.music.play(-1)
-    #MUSICA
+    # MUSICA
     pygame.mixer.music.load("Musica/Musica_about.ogg")
     pygame.mixer.music.play(-1)
     # CANVAS
@@ -620,8 +640,9 @@ def pantalla_about():
     label_modulo.place(x=350, y=455)
 
     # BUTTON
-    boton = Button(canvas, text="Volver", command=pantalla_selector_niveles)
-    boton.place(x=100, y=550)
+    boton = Button(canvas, text="VOLVER",bg=azulito,fg="white",width=10,font=("Times New Romman",12),bd=4,relief="groove",command=pantalla_selector_niveles)
+    boton.place(x=100, y=700)
+
     window.mainloop()
 
 # LAS BASES DE LAS DIFERENTES PANTALLAS
